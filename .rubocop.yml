@@ -16,10 +16,7 @@ AllCops:
     - vendor/**/*
     - spec/fixtures/**/*
     - tmp/**/*
-    - config/environments/*
-    - config/initializers/rswag-ui.rb
-    - config/initializers/rswag_api.rb
-    - config/initializers/rswag-ui.rb
+    - config/**/*
     - lib/tasks/auto_annotate_models.rake
 
 Style/Documentation:

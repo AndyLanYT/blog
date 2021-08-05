@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context "validation tests" do
+  context 'validation tests' do
     it 'ensures username presence' do
-      user = User.new(email: 'email@example.com').save
+      user = described_class.new(email: 'email@example.com').save
       expect(user).to eq(false)
     end
 
     it 'ensures username presence' do
-      user = User.new(username: 'username').save
+      user = described_class.new(username: 'username').save
       expect(user).to eq(false)
     end
 
     # it 'has a password length is between 6 and 20' do
     #   user = User.new(username: 'username', email: 'email@example.com')
     #   expect(user).to_not be_valid
-      
+
     #   user.password = '123456'
     #   expect(user).to be_valid
 
@@ -30,6 +30,5 @@ RSpec.describe User, type: :model do
 
     # it {should validates_uniqueness_of(:email)}
     # end
-
   end
 end
