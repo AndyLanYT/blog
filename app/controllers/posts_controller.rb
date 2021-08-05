@@ -17,31 +17,26 @@ class PostsController < ApplicationController
     def create
         @post = Post.new(posts_params)
         if @post.save
-            flash[:notice] = "Post was created!!"
             redirect_to post_path(@post)
             # redirect_to @post
         else
-            flash[:notice] = "Fatal error!!"
+            render 'new'
         end
     end
-
     
     def edit
     end
 
     def update
         if @post.update(posts_params)
-            flash[:notice] = "Post was updated!"
             redirect_to post_path(@post)
         else
-            flash[:notice] = "Post was not updated! =("
             render 'edit'
         end
     end
 
     def destroy
         @post.destroy
-        flash[:notice] = "Post was destroyed!"
         redirect_to posts_path
     end
 

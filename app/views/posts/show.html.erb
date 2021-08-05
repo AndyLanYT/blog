@@ -1,15 +1,7 @@
-<h1>Your Post:</h1>
+<h1><%= @post.title %></h1>
+<p><%= @post.description %></p>
 
-<p>
-    Title: <%= @post.title %>
-</p>
-
-<p>
-    Description: <%= @post.description %>
-</p>
-
-<td><%= link_to 'Delete', post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %></td>
-
-<p>
-    <%= link_to 'Back', posts_path %>
-</p>
+<hr>
+<%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning' %>
+<%= link_to 'Delete', post_path(@post), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %>
+<%= link_to 'Back', posts_path, :class => 'btn btn-primary' %>
