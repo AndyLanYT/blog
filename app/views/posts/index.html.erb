@@ -1,9 +1,9 @@
 <h1>All Posts:</h1>
 
 <% @posts.each do |post| %>
-    <h3><%= post.title %></h3>
-    <p><%= post.description %></p>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Show', post_path(post) %></td>
-    <td><%= link_to 'Delete', post_path(post), method: :delete, data: {Confirm: "Are you sure?"} %></td>
+    <div class="alert">
+        <h3><%= post.title %></h3>
+        <p><%= post.description %></p>
+        <%= link_to 'Show', post_path(post), :class => 'btn btn-outline-primary' %>
+    </div>
 <% end %>
