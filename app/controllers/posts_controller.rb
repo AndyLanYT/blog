@@ -24,7 +24,6 @@ class PostsController < ApplicationController
             flash[:notice] = "Fatal error!!"
         end
     end
-
     
     def edit
     end
