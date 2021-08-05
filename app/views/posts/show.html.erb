@@ -1,0 +1,15 @@
+<h1>Your Post:</h1>
+
+<p>
+    Title: <%= @post.title %>
+</p>
+
+<p>
+    Description: <%= @post.description %>
+</p>
+
+<td><%= link_to 'Delete', post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %></td>
+
+<p>
+    <%= link_to 'Back', posts_path %>
+</p>
