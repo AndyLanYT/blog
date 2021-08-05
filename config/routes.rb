@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   # resources :users, exclude: [:index]
   # get '/post', to
 
+  resources :users, only: [:index, :show]
+
   resources :posts
-
-  # get '/posts/new', to: 'posts#new'
-
-  # post '/posts/create', to: 'posts#create'
-
 end

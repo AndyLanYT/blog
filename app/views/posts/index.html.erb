@@ -1,20 +1,9 @@
 <h1>All Posts:</h1>
 
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-    </tr>
-    <% @posts.each do |post| %>
-    <tr>
-        <td><%= post.title %></td>
-        <td><%= post.description %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Show', post_path(post) %></td>
-        <td><%= link_to 'Delete', post_path(post), method: :delete, data: {Confirm: "Are you sure?"} %></td>
-    </tr>
-    <% end %>
-</table>
-    <p>
-    <%= link_to "Crete new post", new_post_path %>
-    </p>
+<% @posts.each do |post| %>
+    <h3><%= post.title %></h3>
+    <p><%= post.description %></p>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Show', post_path(post) %></td>
+    <td><%= link_to 'Delete', post_path(post), method: :delete, data: {Confirm: "Are you sure?"} %></td>
+<% end %>

@@ -10,19 +10,21 @@ class PostsController < ApplicationController
     def new
         @post = Post.new
     end
+    
+    def show
+    end
 
     def create
         @post = Post.new(posts_params)
         if @post.save
             flash[:notice] = "Post was created!!"
             redirect_to post_path(@post)
+            # redirect_to @post
         else
             flash[:notice] = "Fatal error!!"
         end
     end
 
-    def show
-    end
     
     def edit
     end

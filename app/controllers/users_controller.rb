@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
+    def index
+        @users = User.all
+    end
+
     def show
-    end
-    
-    def edit
+        @user = User.find(params[:id])
     end
 
-    def update
-    end
-
-    def destroy
+    private
+    def users_params
+        params.require(:post).permit(:email)
     end
 end
