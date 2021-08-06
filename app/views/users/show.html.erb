@@ -1,7 +1,8 @@
 <h1>Profile:</h1>
 
-<p>
-    Email: <%= @user.email %>
-</p>
+<p>Email: <%= @user.email %></p>
+<p>User id: <%= @user.id %></p>
+<p>Admin: <%= @user.admin %></p>
+<p>User role: <%= @user.user_role %></p>
 
 <td><%= link_to "All Users", users_path %></td>

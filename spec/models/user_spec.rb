@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'ensures username presence' do
-    user = described_class.new(email: 'email@example.com').save
-    expect(user).to eq(false)
-  end
-
   it 'ensures email presence' do
-    user = described_class.new(username: 'username').save
-    expect(user).to eq(false)
+    user = described_class.new
+    expect(user).to_not be_vaild
+
+    user.email = 'email@example.com'
+    expect(user).to be_vaild
   end
 
   # it 'has a password length is between 6 and 20' do

@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
-  # layout false
-  skip_before_action :verify_authenticity_token
+  load_and_authorize_resource
   before_action :set_post, only: %i[edit update show destroy]
 
   def index
@@ -14,10 +13,11 @@ class PostsController < ApplicationController
   def show; end
 
   def create
-    @post = Post.new(posts_params)
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       redirect_to post_path(@post)
-    # redirect_to @post
+      # redirect_to @post
     else
       render 'new'
     end
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    if @post.update(posts_params)
+    if @post.update(post_params)
       redirect_to post_path(@post)
     else
       render 'edit'
@@ -39,12 +39,13 @@ class PostsController < ApplicationController
   end
 
   private
-
-  def posts_params
-    params.require(:post).permit(:title, :description)
-  end
-
+  
   def set_post
     @post = Post.find(params[:id])
   end
+  
+  def post_params
+    params.require(:post).permit(:title, :description, :user_id)
+  end
+
 end

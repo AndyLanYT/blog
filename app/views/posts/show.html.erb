@@ -1,5 +1,6 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.description %></p>
+<p>User id: <%= @post.user_id %></p>
 
 <hr>
 <%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning' %>
