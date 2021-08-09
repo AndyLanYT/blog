@@ -1,6 +1,6 @@
 <h2><%= @post.title %></h2>
 <p><%= @post.description %></p>
-<p>User id: <%= @post.user_id %></p>
+<p>Author: <%= @post.user.email %></p>
 <hr>
 
 <% if can? :update, @post %>

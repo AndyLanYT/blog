@@ -13,11 +13,11 @@ class PostsController < ApplicationController
   def show; end
 
   def create
-    @post = Post.new(post_params)
-    @post.user = current_user
+    # @post = Post.new(post_params)
+    # @post.user = current_user
+    @post = current_user.posts.new(post_params)
     if @post.save
       redirect_to post_path(@post)
-      # redirect_to @post
     else
       render 'new'
     end
