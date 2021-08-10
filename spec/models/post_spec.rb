@@ -1,42 +1,62 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  context 'validation tests' do
-    it 'ensures title presence' do
-      post = described_class.new(description: 'Description').save
-      expect(post).to eq(false)
-    end
+  let(:current_user) do
+    User.create!(
+      id: 1,
+      email: 'email@example.com',
+      password: 'password'
+    )
+  end
 
-    it 'has a title length is equal or greater than 2' do
-      post = described_class.new(title: '', description: 'Just a description')
-      expect(post).not_to be_valid
+  it 'has a title' do
+    post = described_class.new(title: nil, description: 'Description', user: current_user)
+    expect(post).to_not be_valid
 
-      post.title = 'TT'
-      expect(post).to be_valid
-    end
+    post.title = 'Title'
+    expect(post).to be_valid
+  end
+  
+  it 'has a description' do
+    post = described_class.new(title: 'Title', description: nil, user: current_user)
+    expect(post).to_not be_valid
 
-    it 'ensures description presence' do
-      post = described_class.new(title: 'Title').save
-      expect(post).to eq(false)
-    end
+    post.description = 'Description'
+    expect(post).to be_valid
+  end
 
-    it 'has a description length is between 5 and 100' do
-      post = described_class.new(title: 'Just a title', description: '')
-      expect(post).not_to be_valid
+  it 'has a title length equal at least 2' do
+    post = described_class.new(title: 'T', description: 'Description', user: current_user)
+    expect(post).not_to be_valid
 
-      post.description = 'Text!'
-      expect(post).to be_valid
+    post.title = 'TT'
+    expect(post).to be_valid
+  end
+  
+  it 'has a description length between 5 and 100' do
+    post = described_class.new(title: 'Title', description: 'Desc', user: current_user)
+    expect(post).not_to be_valid
 
-      post.description = 'abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij'
-      expect(post).to be_valid
+    post.description = '*' * 5
+    expect(post).to be_valid
 
-      post.description = 'abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghija'
-      expect(post).not_to be_valid
-    end
+    post.description = '*' * 100
+    expect(post).to be_valid
 
-    it 'is saved successfully' do
-      post = described_class.new(title: 'Title', description: 'Description').save
-      expect(post).to eq(true)
-    end
+    post.description = '*' * 101
+    expect(post).not_to be_valid
+  end
+
+  it 'should belongs to user' do
+    post = described_class.new(title: 'Title', description: 'Description', user: nil)
+    expect(post).to_not be_valid
+
+    post.user = current_user
+    expect(post).to be_valid
+  end
+
+  it 'is saved successfully' do
+    post = described_class.new(title: 'Title', description: 'Description', user: current_user).save
+    expect(post).to eq(true)
   end
 end

@@ -1,34 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'validation tests' do
-    it 'ensures username presence' do
-      user = described_class.new(email: 'email@example.com').save
-      expect(user).to eq(false)
-    end
+  it 'has an email' do
+    should validate_presence_of :email
+    # user = described_class.new(email: nil)
+    # expect(user).to_not be_vaild
+    
+    # user.email = 'email@example.com'
+    # expect(user).to be_vaild
+  end
 
-    it 'ensures username presence' do
-      user = described_class.new(username: 'username').save
-      expect(user).to eq(false)
-    end
-
-    # it 'has a password length is between 6 and 20' do
-    #   user = User.new(username: 'username', email: 'email@example.com')
-    #   expect(user).to_not be_valid
-
-    #   user.password = '123456'
-    #   expect(user).to be_valid
-
-    #   user.password = '12345678900987654321'
-    #   expect(user).to be_valid
-
-    #   user.password = '123456789009876543211'
-    #   expect(user).to_not be_valid
-    # end
-
-    # it {should validates_uniqueness_of(:username)}
-
-    # it {should validates_uniqueness_of(:email)}
-    # end
+  it 'has many posts' do
+    should have_many :posts
   end
 end
