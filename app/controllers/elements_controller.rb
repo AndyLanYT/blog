@@ -1,5 +1,5 @@
 class ElementsController < ApplicationController
-    # load_and_authorize_resource
+    load_and_authorize_resource
     before_action :set_post, only: %i[create edit update destroy]
     before_action :set_element, only: %i[edit update destroy]
   

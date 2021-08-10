@@ -35,6 +35,8 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    @post.comments.all.each(&:destroy)
+    @post.elements.all.each(&:destroy)
     redirect_to posts_path
   end
 
@@ -45,6 +47,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :description, :user_id)
+    params.require(:post).permit(:title, :description)
   end
 end
