@@ -1,14 +1,65 @@
 <h2>Edit Post</h2>
 
-<%= form_with model: @post do |f| %>
-    <% if @post.errors.any? %>
-        <% @post.errors.full_messages.each do |msg| %>
-            <div class="alert alert-danger"><%= msg %></div>
-        <% end %>
+<div class="mb-3">
+    <%= form_with model: [@post, @element] do |f| %>
+        <p>Title<br><%= f.text_field :title %></p>
+        <p>Description<br><%= f.text_area :description %></p>
+        <%= f.hidden_field :element_type, value: 'paragraph' %>
+        <%= f.submit 'Paragraph', class: 'btn btn-dark' %>
     <% end %>
-    <p>Title<br><%= f.text_field :title %></p>
-    <p>Description<br><%= f.text_area :description %></p>
-    <p><%= f.submit %></p>
-<% end %>
+    <%= form_with(model: [@post, @element]) do |f| %>
+        <%= f.hidden_field :element_type, value: 'image' %>
+        <%= f.submit 'Image', class: 'btn btn-dark' %>
+    <% end %>
+</div>
+
+<div class='card'>
+    <div class='card body pt-5'>
+        <% @post.elements.each do |element| %>
+            <% if element.persisted? %>
+                <% if element.paragraph? %>
+                    <div class='mb-3 p-3 paragraph'>
+                        <div class='paragraph-content'>
+                            <% if element.content.present? %>
+                                <%= element.content %>
+                            <% else %>
+                                Click to add content.
+                            <% end %>
+                        </div>
+                        <div class='paragraph-form d-none'>
+                            <%= form_with model: [@post, element] do |f| %>
+                                <%= f.rich_text_area :content %>
+                                <div class="mt-3 d-flex justify-content-between">
+                                    <div>
+                                        <%= f.submit 'Save', class: 'btn btn-primary' %>
+                                        <a href="#" class='cancel btn btn-secondary'>Cancel</a>
+                                    </div>
+                                    <%= link_to 'Delete', post_element_path(@post, element), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure?" } %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                <% elsif element.image? %>
+                    <div class="mb-4 p-3 image">
+                        <% if element.image.present? %>
+                            <div>
+                                <%= image_tag(element.image) %>
+                            </div>
+                            <%= link_to 'Delete', post_element_path(@post, element), method: :delete, class: 'btn btn-danger mt-2 float-right', data: { confirm: "Are you sure?" } %>
+                        <% else %>
+                            <%= form_with model: [@post, element] do |f| %>
+                                <%= f.file_field :image %>
+                                <div class='mt-3'>
+                                    <%= f.submit 'Save', class: 'btn btn-primary' %>
+                                    <a href="#" class='cancel btn btn-secondary'>Cancel</a>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
 
 <p><%= link_to 'All posts', posts_path %></p>
