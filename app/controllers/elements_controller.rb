@@ -10,8 +10,8 @@ class ElementsController < ApplicationController
             notice = nil
         else
             notice = @element.errors.full_messages.join(". ") << "."
-            redirect_to edit_post_path(@post)
         end
+        redirect_to edit_post_path(@post)
     end
   
     def edit; end
