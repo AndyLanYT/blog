@@ -5,27 +5,56 @@
 <p>Author: <%= @post.user.email %></p>
 <hr>
 
-<% unless @post.elements.empty? %>
-  <div>
-    <% @post.elements.each do |element| %>
-      <% if element.persisted? %>
-        <% if element.paragraph? %>
-          <div class='mb-3 p-2'>
-            <% if element.content.present? %>
-              <%= element.content %>
-            <% end %>
-          </div>
-        <% elsif element.image? %>
-          <div class='mb-4 p-3 image'>
-            <% if element.image.present? %>
-              <%= image_tag(element.image) %>
+<div class='row'>
+  <div class='col-md-9'>
+    <div class='card mb-3'>
+      <div class='card-body'>
+        <% unless @post.elements.empty? %>
+          <div>
+            <% @post.elements.each do |element| %>
+              <% if element.persisted? %>
+                <% if element.paragraph? %>
+                  <div class='mb-3 p-2'>
+                    <% if element.content.present? %>
+                      <%= element.content %>
+                    <% end %>
+                  </div>
+                <% elsif element.image? %>
+                  <div class='mb-4 p-3 image'>
+                    <% if element.image.present? %>
+                      <%= image_tag(element.image) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
             <% end %>
           </div>
         <% end %>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
+  <div class='col-md-3'>
+    <div class='card'>
+      <div class='card-body'>
+        <% unless @post.comments.empty? %>
+          <h2>Comments:</h2>
+          <% @post.comments.each do |comment| %>
+            <div class='mb-3'>
+              <strong><%= comment.user.email %></strong>: <%= comment.body %>
+              <% if can? :update, comment %>
+                <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
+              <% end %>
+              <% if can? :destroy, comment %>
+                <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
+              <% end %>
+            </div>
+          <% end %>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% if can? :update, @post %>
     <%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning' %>
@@ -34,24 +63,6 @@
     <%= link_to 'Delete', post_path(@post), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %>
 <% end %>
 <hr>
-
-<% unless @post.comments.empty? %>
-  <div>
-    <h2>Comments:</h2>
-    <% @post.comments.each do |comment| %>
-      <div class='mb-2'>
-        <strong><%= comment.user.email %></strong>: <%= comment.body %>
-        <% if can? :update, comment %>
-          <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
-        <% end %>
-        <% if can? :destroy, comment %>
-          <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
-        <% end %>
-      </div>
-    <% end %>
-    <hr>
-  </div>
-<% end %>
 
 <div>
   <h2>Comment</h2>
