@@ -19,7 +19,7 @@ RSpec.describe Element, type: :model do
 
   it 'has an element type paragraph or photo' do
     element = described_class.new(element_type: nil, user: current_user, post: current_post)
-    expect(element).to_not be_valid
+    expect(element).not_to be_valid
 
     element.element_type = 'paragraph'
     expect(element).to be_valid
@@ -28,6 +28,6 @@ RSpec.describe Element, type: :model do
     expect(element).to be_valid
 
     element.element_type = 'video'
-    expect(element).to_not be_valid
+    expect(element).not_to be_valid
   end
 end

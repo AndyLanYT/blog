@@ -1,9 +1,17 @@
-<h1>All Posts:</h1>
+<h4 class='d-flex justify-content-between mb-4'>
+    Posts
+    <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+</h4>
 
 <% @posts.each do |post| %>
-    <div class="alert">
-        <h3><%= post.title %></h3>
-        <%= link_to 'Show', post_path(post), :class => 'btn btn-outline-primary' %>
-        <hr>
+  <%= link_to post, class: 'text-decoration-none' do %>
+    <div class='card mb-3'>
+      <div class='card-body'>
+      <h5 class='card-title text-dark'><%= post.title %></h5>
+      <p class='text-secondary'><%= post.description %></p>
+      <hr>
+      </div>
     </div>
+  <% end %>
 <% end %>
+ 

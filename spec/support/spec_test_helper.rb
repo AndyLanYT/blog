@@ -1,6 +1,5 @@
 module SpecTestHelper
-    def login(user)
-        sign_in user
-    end
+  def login(user)
+    sign_in user
+  end
 end
-  

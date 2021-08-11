@@ -6,11 +6,11 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params.merge({ user_id: current_user.id, post_id: params[:post_id] }))
 
-    if @comment.save
-      notice = nil
-    else
-      notice = @comment.errors.full_messages.join(". ") << "."
-    end
+    notice = if @comment.save
+               nil
+             else
+               @comment.errors.full_messages.join('. ') << '.'
+             end
     redirect_to post_path(@post), notice: notice
   end
 
