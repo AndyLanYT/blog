@@ -1,8 +1,11 @@
-<h1>All Users</h1>
+<h2>All Users</h2>
 
 <% @users.each do |user| %>
-<tr>
-    <p><%= user.email %></p>
-    <td><%= link_to 'Show', user_path(user) %></td>
-</tr>
+  <div class='card mb-3'>
+    <div class='card-body'>
+      <%= user.email %>
+      <hr>
+      <%= link_to 'Show', user, class: 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>

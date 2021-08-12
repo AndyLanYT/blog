@@ -4,12 +4,14 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= nil
+    user ||= User.new
 
-    # can :manage, :all
-    guest_can
-    user_can(user.id) if user.user_role?
-    admin_can if user.admin?
+    can :manage, :all
+    unless user.isBanned
+      guest_can
+      user_can(user.id) if user.user_role?
+      admin_can if user.admin?
+    end
   end
 
   private

@@ -1,7 +1,7 @@
 <%= form_with(model: post, local: true) do |f| %>
   <% if post.errors.any? %>
     <% post.errors.full_messages.each do |msg| %>
-      <div class="alert alert-danger"><%= msg %></div>
+      <div class='alert alert-danger'><%= msg %></div>
     <% end %>
   <% end %>
 
@@ -15,7 +15,21 @@
     <%= f.text_field :description, class: 'form-control mb-3' %>
   </div>
 
-  <div class='actions'>
+  <div class='mb-1'>
+    Status:
+    <% if post.isHidden %>
+      Hidden
+    <% else %>
+      Unhidden
+    <% end %>
+  </div>
+
+  <div class='mb-2'>
+    <%= link_to 'Hide', update_status_post_path(post, isHidden: true), method: :patch, class: 'btn btn-dark' %>
+    <%= link_to 'Unhide', update_status_post_path(post, isHidden: false), method: :patch, class: 'btn btn-dark' %>
+  </div>
+
+  <div>
     <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

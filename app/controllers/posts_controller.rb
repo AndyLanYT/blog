@@ -15,7 +15,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to post_path(@post)
+      redirect_to edit_post_path(@post)
     else
       render 'new'
     end
@@ -33,10 +33,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def update_status
+    @post = Post.find(params[:id])
+    @post.update(isHidden: params[:isHidden])
+    redirect_to edit_post_path(@post)
+  end
+
   def destroy
-    @post.destroy
     @post.comments.all.each(&:destroy)
     @post.elements.all.each(&:destroy)
+    @post.destroy
     redirect_to posts_path
   end
 
@@ -47,6 +53,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :isHidden)
   end
 end

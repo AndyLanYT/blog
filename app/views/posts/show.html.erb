@@ -7,9 +7,9 @@
 
 <div class='row'>
   <div class='col-md-9'>
-    <div class='card mb-3'>
-      <div class='card-body'>
-        <% unless @post.elements.empty? %>
+    <% unless @post.elements.empty? %>
+      <div class='card mb-3'>
+        <div class='card-body'>
           <div>
             <% @post.elements.each do |element| %>
               <% if element.persisted? %>
@@ -29,18 +29,21 @@
               <% end %>
             <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
   <div class='col-md-3'>
-    <div class='card'>
-      <div class='card-body'>
-        <% unless @post.comments.empty? %>
-          <h2>Comments:</h2>
+    <% unless @post.comments.empty? %>
+      <div class='card'>
+        <div class='card-body'>
+          <h3>Comments:</h3>
           <% @post.comments.each do |comment| %>
             <div class='mb-3'>
-              <strong><%= comment.user.email %></strong>: <%= comment.body %>
+              <%= link_to comment.user, class: 'text-decoration-none' do %>
+                <strong class='text-dark'><%= comment.user.email %></strong>:
+              <% end %>
+              <%= comment.body %>
               <% if can? :update, comment %>
                 <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
               <% end %>
@@ -50,9 +53,9 @@
             </div>
           <% end %>
           <hr>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
 

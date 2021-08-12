@@ -4,14 +4,15 @@
 </h4>
 
 <% @posts.each do |post| %>
-  <%= link_to post, class: 'text-decoration-none' do %>
-    <div class='card mb-3'>
-      <div class='card-body'>
-      <h5 class='card-title text-dark'><%= post.title %></h5>
-      <p class='text-secondary'><%= post.description %></p>
-      <hr>
+  <% if current_user.admin or (!post.user.isBanned and !post.isHidden) %>
+    <%= link_to post, class: 'text-decoration-none' do %>
+      <div class='card mb-3'>
+        <div class='card-body'>
+        <h5 class='card-title text-dark'><%= post.title %></h5>
+        <p class='text-secondary'><%= post.description %></p>
+        <hr>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 <% end %>
- 
