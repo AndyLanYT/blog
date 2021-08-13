@@ -7,9 +7,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update_status
+    @user = User.find(params[:id])
+    @user.update(isBanned: params[:isBanned])
+    redirect_to @user
+  end
+
   private
 
   def users_params
-    params.require(:post).permit(:email)
+    params.require(:user).permit(:email, :isBanned)
   end
 end

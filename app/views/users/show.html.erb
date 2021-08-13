@@ -1,8 +1,20 @@
 <h1>Profile:</h1>
 
-<p>Email: <%= @user.email %></p>
-<p>User id: <%= @user.id %></p>
-<p>Admin: <%= @user.admin %></p>
-<p>User role: <%= @user.user_role %></p>
+<div class='card mb-3'>
+  <div class='card-body'>
+    <p>Email: <%= @user.email %></p>
+    <p>User id: <%= @user.id %></p>
+    <p>Admin: <%= @user.admin %></p>
+    <p>User role: <%= @user.user_role %></p>
+    <p>Is banned: <%= @user.isBanned %></p>
+  </div>
+</div>
+
+<% if can? :manage, @user %>
+  <div class='mb-2'>
+    <%= link_to 'Ban', update_status_user_path(@user, isBanned: true), method: :patch, class: 'btn btn-dark' %>
+    <%= link_to 'Unban', update_status_user_path(@user, isBanned: false), method: :patch, class: 'btn btn-dark' %>
+  </div>
+<% end %>
 
 <td><%= link_to "All Users", users_path %></td>

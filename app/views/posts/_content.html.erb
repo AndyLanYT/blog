@@ -10,17 +10,13 @@
   </div>
   <div class='col-md-9'>
     <div class="mb-3">
-      <% unless @post.errors.any? %>
-        <%= form_with(model: [@post, @element], html: { class: 'float-left' }) do |f| %>
-          <%= f.hidden_field :element_type, value: 'paragraph' %>
-          <%= f.submit 'Paragraph', class: 'btn btn-dark' %>
-        <% end %>
-        <%= form_with(model: [@post, @element]) do |f| %>
-          <%= f.hidden_field :element_type, value: 'image' %>
-          <%= f.submit 'Image', class: 'btn btn-dark' %>
-        <% end %>
-      <% else %>
-      <%# # ... %>
+      <%= form_with(model: [@post, @element], html: { class: 'float-left' }) do |f| %>
+        <%= f.hidden_field :element_type, value: 'paragraph' %>
+        <%= f.submit 'Paragraph', class: 'btn btn-dark' %>
+      <% end %>
+      <%= form_with(model: [@post, @element]) do |f| %>
+        <%= f.hidden_field :element_type, value: 'image' %>
+        <%= f.submit 'Image', class: 'btn btn-dark' %>
       <% end %>
     </div>
     <div class='card'>
@@ -50,7 +46,7 @@
                 </div>
               </div>
             <% elsif element.image? %>
-              <div class='mb-4 p-3 image'>
+              <div class="mb-4 p-3 image">
                 <% if element.image.present? %>
                   <div>
                     <%= image_tag(element.image) %>
@@ -73,5 +69,3 @@
     </div>
   </div>
 </div>
-
-<p><%= link_to 'All posts', posts_path %></p>

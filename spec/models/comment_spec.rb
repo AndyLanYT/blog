@@ -6,7 +6,7 @@ RSpec.describe Comment, type: :model do
       id: 153,
       email: 'email@example.com',
       password: 'password'
-    )  
+    )
   end
   let(:current_post) do
     Post.create!(
@@ -19,7 +19,7 @@ RSpec.describe Comment, type: :model do
 
   it 'has a body' do
     comment = described_class.new(body: nil, user: current_user, post: current_post)
-    expect(comment).to_not be_valid
+    expect(comment).not_to be_valid
 
     comment.body = 'Text'
     expect(comment).to be_valid

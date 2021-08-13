@@ -12,20 +12,17 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class='bg-light'>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
       <h5 class="my-0 mr-md-auto font-weight-bold">MyBlog</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <span class="p-2 text-dark"><%= link_to "All Posts", posts_path %></span>
-      </nav>
-      <span class="p-2 text-dark"><%= link_to "New post", new_post_path %></span>
+      <span class="p-2"><%= link_to "All Posts", posts_path %></span>
       <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'btn btn-secondary' %>
       <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+        <div>
+          <%= link_to "Sign up", new_user_registration_path, class: 'btn btn-secondary' %>
+          <%= link_to "Login", new_user_session_path, class: 'btn btn-secondary'  %>
+        </div>
       <% end %>
     </div>
 

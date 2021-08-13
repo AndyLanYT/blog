@@ -13,17 +13,17 @@ class PostsController < ApplicationController
   def show; end
 
   def create
-    # @post = Post.new(post_params)
-    # @post.user = current_user
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to post_path(@post)
+      redirect_to edit_post_path(@post)
     else
       render 'new'
     end
   end
 
-  def edit; end
+  def edit
+    @element = @post.elements.build
+  end
 
   def update
     if @post.update(post_params)
@@ -33,19 +33,26 @@ class PostsController < ApplicationController
     end
   end
 
+  def update_status
+    @post = Post.find(params[:id])
+    @post.update(isHidden: params[:isHidden])
+    redirect_to edit_post_path(@post)
+  end
+
   def destroy
+    @post.comments.all.each(&:destroy)
+    @post.elements.all.each(&:destroy)
     @post.destroy
     redirect_to posts_path
   end
 
   private
-  
+
   def set_post
     @post = Post.find(params[:id])
   end
-  
-  def post_params
-    params.require(:post).permit(:title, :description, :user_id)
-  end
 
+  def post_params
+    params.require(:post).permit(:title, :description, :isHidden)
+  end
 end

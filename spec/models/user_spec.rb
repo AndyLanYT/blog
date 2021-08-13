@@ -2,15 +2,18 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it 'has an email' do
-    should validate_presence_of :email
-    # user = described_class.new(email: nil)
-    # expect(user).to_not be_vaild
-    
-    # user.email = 'email@example.com'
-    # expect(user).to be_vaild
+    expect(subject).to validate_presence_of :email
   end
 
   it 'has many posts' do
-    should have_many :posts
+    expect(subject).to have_many :posts
+  end
+
+  it 'has many comments' do
+    expect(subject).to have_many :comments
+  end
+
+  it 'has many elements' do
+    expect(subject).to have_many :elements
   end
 end
