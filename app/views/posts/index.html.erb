@@ -1,0 +1,29 @@
+<h4 class='d-flex justify-content-between mb-4'>
+    Posts
+    <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+</h4>
+
+<% @posts.each do |post| %>
+  <% if current_user.nil? or current_user.admin or !post.user.isBanned %>
+    <% unless post.isHidden %>
+      <%= link_to post, class: 'text-decoration-none' do %>
+        <div class='card mb-3'>
+          <div class='card-body'>
+          <h5 class='card-title text-dark'><%= post.title %></h5>
+          <p class='text-secondary'><%= post.description %></p>
+          <hr>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class='card mb-3'>
+        <div class='card-body'>
+        <h5 class='card-title text-dark'><%= post.title %></h5>
+        <p class='text-secondary'><%= post.description %></p>
+        <hr class='mb-2'>
+        <span>Hidden</span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

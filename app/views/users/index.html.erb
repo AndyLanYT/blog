@@ -1,0 +1,11 @@
+<h2>All Users</h2>
+
+<% @users.each do |user| %>
+  <div class='card mb-3'>
+    <div class='card-body'>
+      <%= user.email %>
+      <hr>
+      <%= link_to 'Show', user, class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

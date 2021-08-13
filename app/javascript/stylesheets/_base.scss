@@ -1,0 +1,24 @@
+.paragraph {
+  transition: background-color 0.5s ease;
+  &:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+}
+
+.image {
+  text-align: center;
+  img {
+    max-width: 80%;
+  }
+}
+
+.float-left {
+  float: left;
+  margin-right: 5px;
+}
+
+.sidebar {
+  height: 600px;
+  overflow: scroll;
+}

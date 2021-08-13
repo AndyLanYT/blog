@@ -1,0 +1,76 @@
+<%= link_to 'Back', posts_path, class: 'btn btn-secondary mb-3' %>
+
+<h2><%= @post.title %></h2>
+<p><%= @post.description %></p>
+<p>Author: <%= @post.user.email %></p>
+<hr>
+
+<div class='row'>
+  <div class='col-md-9'>
+    <% unless @post.elements.empty? %>
+      <div class='card mb-3'>
+        <div class='card-body'>
+          <div>
+            <% @post.elements.each do |element| %>
+              <% if element.persisted? %>
+                <% if element.paragraph? %>
+                  <div class='mb-3 p-2'>
+                    <% if element.content.present? %>
+                      <%= element.content %>
+                    <% end %>
+                  </div>
+                <% elsif element.image? %>
+                  <div class='mb-4 p-3 image'>
+                    <% if element.image.present? %>
+                      <%= image_tag(element.image) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='col-md-3'>
+    <% unless @post.comments.empty? %>
+      <div class='card'>
+        <div class='card-body'>
+          <h3>Comments:</h3>
+          <% @post.comments.each do |comment| %>
+            <div class='mb-3'>
+              <%= link_to comment.user, class: 'text-decoration-none' do %>
+                <strong class='text-dark'><%= comment.user.email %></strong>:
+              <% end %>
+              <%= comment.body %>
+              <% if can? :update, comment %>
+                <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
+              <% end %>
+              <% if can? :destroy, comment %>
+                <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
+              <% end %>
+            </div>
+          <% end %>
+          <hr>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if can? :update, @post %>
+    <%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning' %>
+<% end %>
+<% if can? :destroy, @post %>
+    <%= link_to 'Delete', post_path(@post), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %>
+<% end %>
+<hr>
+
+<div>
+  <h2>Comment</h2>
+  <%= form_for([@post, @post.comments.build]) do |f| %>
+    <%= f.text_area :body, class: 'form-control mb-2' %>
+    <%= f.submit 'Comment', class: 'btn btn-warning mb-5' %>
+  <% end %>
+</div>
